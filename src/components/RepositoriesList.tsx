@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTypedSelector } from '../hooks/useTypedSelector';
 import { useActions } from '../hooks/useActions';
 
 interface IRepositoriesListProps {}
@@ -6,6 +7,9 @@ interface IRepositoriesListProps {}
 const RepositoriesList: React.FC<IRepositoriesListProps> = ({}) => {
   const [term, setTerm] = useState('');
   const { searchRepositories } = useActions();
+  const { data, error, loading } = useTypedSelector(
+    state => state.repositories
+  );
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
