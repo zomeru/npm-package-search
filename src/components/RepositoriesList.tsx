@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 import { useActions } from '../hooks/useActions';
-import { useSelector } from 'react-redux';
+import {
+  textWhite,
+  formStyles,
+  linkDivStyles,
+  linkStyles,
+} from '../styles/styles';
 
-interface IRepositoriesListProps {}
-
-const RepositoriesList: React.FC<IRepositoriesListProps> = ({}) => {
+const RepositoriesList = () => {
   const [term, setTerm] = useState('');
   const { searchRepositories } = useActions();
-  const state = useSelector(state => state);
   const { data, error, loading } = useTypedSelector(
     state => state.repositories
   );
-
-  console.log(state);
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
@@ -23,7 +23,7 @@ const RepositoriesList: React.FC<IRepositoriesListProps> = ({}) => {
 
   return (
     <div>
-      <form action='' onSubmit={onSubmit}>
+      <form style={formStyles} action='' onSubmit={onSubmit}>
         <input
           type='text'
           value={term}
@@ -31,8 +31,8 @@ const RepositoriesList: React.FC<IRepositoriesListProps> = ({}) => {
         />
         <button>Search</button>
       </form>
-      {error && <h3>{error}</h3>}
-      {loading && <h3>Loading...</h3>}
+      {error && <h3 style={textWhite}>{error}</h3>}
+      {loading && <h3 style={textWhite}>Loading...</h3>}
       {!error &&
         !loading &&
         data.map(name => {
@@ -44,8 +44,8 @@ const RepositoriesList: React.FC<IRepositoriesListProps> = ({}) => {
           const noNum = noDash.replace(/[0-9]/g, '');
           const finalName = noNum.replaceAll('%', ' ');
           return (
-            <div key={name}>
-              <a href={name} target='_blank'>
+            <div style={linkDivStyles} key={name}>
+              <a style={linkStyles} href={name} target='_blank'>
                 {finalName}
               </a>
             </div>
