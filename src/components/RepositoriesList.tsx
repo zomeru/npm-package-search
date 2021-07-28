@@ -40,13 +40,17 @@ const RepositoriesList = () => {
             'https://www.npmjs.com/package/',
             ''
           );
-          const noDash = packageName.replaceAll('-', ' ');
-          const noNum = noDash.replace(/[0-9]/g, '');
-          const finalName = noNum.replaceAll('%', ' ');
+
+          const pckg = packageName
+            .replaceAll('-', ' ')
+            .replace(/[0-9]/g, '')
+            .replaceAll('%', ' ')
+            .replace(/F/g, '');
+
           return (
             <div style={linkDivStyles} key={name}>
               <a style={linkStyles} href={name} target='_blank'>
-                {finalName}
+                {pckg}
               </a>
             </div>
           );
